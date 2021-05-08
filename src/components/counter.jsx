@@ -2,49 +2,64 @@ import React, { useState } from "react";
 
 export const Counter = () => {
   const [count, setCount] = useState(0);
+  const [cssClass, setcssClass] = useState(
+      "px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full",
+);
 
   var formatCount = () => {
     if (count === 0) return "Zero";
-    else return count;
+    else {
+      return count;
+    }
   };
 
   var handleIncrement = () => {
     setCount(count + 1);
-    console.log("clicked");
+    if(count + 1 > 0){
+      setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-blue-600 rounded-full")
+    }
+    console.log("handleIncrement");
   };
 
   var handleDecrement = () => {
-    setCount(count-1);
-    console.log("clicked");
+    setCount(count - 1);
+    console.log(count);
+    if(count - 1 <= 0){
+      setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full")
+    }
+    console.log("handleDecrement");
   };
 
   const hanldeReset = () => {
-      setCount(0);
-  }
+    setCount(0);
+    setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-green-600 rounded-full")
+  };
 
   return (
-    <div>
-      <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-        {formatCount()}
-      </span>
-      <button
-        className="g-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() => handleIncrement()}
-      >
-        Increment
-      </button>
-      <button
-        className="g-blue-500 bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() => handleDecrement()}
-      >
-        Decrement
-      </button>
-      <button
-        className="g-blue-500 bg-green-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() => hanldeReset()}
-      >
-        Reset
-      </button>
+    <div className="inline-flex items-center justify-center">
+      <div className="counter m-2">
+        <span className={cssClass}>{formatCount()}</span>
+      </div>
+      <div className="Operations">
+        <button
+          className="m-2 border-0 outline-none g-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          onClick={() => handleIncrement()}
+        >
+          Increment
+        </button>
+        <button
+          className="m-2 g-blue-500 bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+          onClick={() => handleDecrement()}
+        >
+          Decrement
+        </button>
+        <button
+          className="m-2 g-blue-500 bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+          onClick={() => hanldeReset()}
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 };
