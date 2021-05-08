@@ -7,7 +7,7 @@ const Counter = (props) => {
 );
 
   var formatCount = () => {
-    if (count === 0) return "Zero";
+    if (count === 0) return "0";
     else {
       return count;
     }
@@ -41,7 +41,12 @@ const Counter = (props) => {
   return (
     <div>
       <div className="inline-flex items-center justify-center">
-        <p>{props.children}</p>
+        <button
+          className="m-2 g-blue-500 bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
+          onClick={() => handleDecrement()}
+        >
+          -
+        </button>
       <div className="counter m-2">
         <span className={cssClass}>{formatCount()}</span>
       </div>
@@ -50,19 +55,13 @@ const Counter = (props) => {
           className="m-2 border-0 outline-none g-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={() => handleIncrement()}
         >
-          Increment
+          +
         </button>
         <button
           className="m-2 g-blue-500 bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={() => handleDecrement()}
+          onClick={() => props.handleDelete()}
         >
-          Decrement
-        </button>
-        <button
-          className="m-2 g-blue-500 bg-green-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={() => hanldeReset()}
-        >
-          Reset
+          Delete
         </button>
       </div>
     </div>
