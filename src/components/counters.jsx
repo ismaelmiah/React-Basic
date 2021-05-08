@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Counter from "./counter";
+import Navbar from "./navbar";
 
 const Counters = () => {
   const [counters, setCounter] = useState([
@@ -9,18 +10,45 @@ const Counters = () => {
     { id: 4, value: 1 },
   ]);
 
-  const onDelete = (id) => {
-      let copyCounters = counters.filter(x => x.id !== id);
-        setCounter(copyCounters);
+  const onDelete = (counter) => {
+    let copyCounters = counters.filter((x) => x.id !== counter.id);
+    setCounter(copyCounters);
+  };
+
+  var onIncrement = (reqcounter) => {
+    var counter = [...counters];
+    var idx = counter.findIndex((x) => x.id === reqcounter.id);
+    counter[idx].value++;
+    setCounter(counter);
+  };
+
+  var onDecrement = (reqcounter) => {
+    var counter = [...counters];
+    var idx = counter.findIndex((x) => x.id === reqcounter.id);
+    counter[idx].value--;
+    setCounter(counter);
+  };
+
+  const onReset = () => {
+    setCounter([]);
+  };
+
+  const onAdd = () => {
+    var counter = [...counters];
+    counter.push({ id: counter.length + 1, value: 0 });
+    setCounter(counter);
   };
 
   return (
     <div>
+      <Navbar cartItem = {counters.length} hanldeReset={onReset} handleAdd={onAdd} />
       {counters.map((item) => (
         <Counter
           key={item.id}
-          value={item.value}
-          handleDelete={() => onDelete(item.id)}
+          Counter={item}
+          handleIncrement={onIncrement}
+          handleDecrement={onDecrement}
+          handleDelete={onDelete}
         ></Counter>
       ))}
     </div>
