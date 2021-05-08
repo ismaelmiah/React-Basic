@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export const Counter = () => {
-  const [count, setCount] = useState(0);
+const Counter = (props) => {
+  const [count, setCount] = useState(props.value);
   const [cssClass, setcssClass] = useState(
       "px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full",
 );
@@ -15,28 +15,33 @@ export const Counter = () => {
 
   var handleIncrement = () => {
     setCount(count + 1);
-    if(count + 1 > 0){
-      setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-blue-600 rounded-full")
-    }
     console.log("handleIncrement");
   };
 
   var handleDecrement = () => {
     setCount(count - 1);
     console.log(count);
-    if(count - 1 <= 0){
-      setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full")
-    }
     console.log("handleDecrement");
   };
 
   const hanldeReset = () => {
-    setCount(0);
-    setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-green-600 rounded-full")
+    setCount(0);    
   };
 
+  useEffect(() => {
+    if(count > 0){
+      setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-blue-600 rounded-full")
+    }
+    else if(count < 0){
+      setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full")
+    }
+    else setcssClass("px-2 py-1 text-xs font-bold leading-none text-red-100 bg-green-600 rounded-full")
+  })
+
   return (
-    <div className="inline-flex items-center justify-center">
+    <div>
+      <div className="inline-flex items-center justify-center">
+        <p>{props.children}</p>
       <div className="counter m-2">
         <span className={cssClass}>{formatCount()}</span>
       </div>
@@ -61,5 +66,9 @@ export const Counter = () => {
         </button>
       </div>
     </div>
+    </div>
   );
 };
+
+
+export default Counter;
